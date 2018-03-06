@@ -14,9 +14,12 @@ npm i entries-iterator
 
 The module exports a single function.
 
-### Parameter
+### Parameters
 
-Bindable: `c` (Array, Iterator, Object, Map, Set, or Typed Array)
+1. Bindable: `c` (Array, Iterator, Object, Map, Set, or Typed Array)
+2. Object argument. Both of these default to `false` and only take effect if `c` is an Object (i.e. not another recognized type).
+    * Optional: `inObj` (boolean): Whether or not to act like the “in” operator by including inherited Object properties.
+    * Optional: `reflectObj` (boolean): Whether or not to include non-enumerable Object properties by using reflection.
 
 ### Return Value
 
@@ -71,6 +74,8 @@ i.next().done // true
 
 ### Objects
 
+When we say “Object” here, we mean an `Object` that does not fall under another recognized category (like Array or Map).
+
 ```javascript
 const entries = require('entries-iterator')
 
@@ -78,10 +83,39 @@ const i = entries({key: 'value'})
 i.next().value // ['key', 'value']
 i.next().done // true
 
-
 // Supports the bind operator
 const obj = {key: 'value'}
 obj::entries()
+```
+
+#### Inherited Object Properties
+
+Include Object properties from the prototype chain by setting `inObj` to `true`:
+
+```javascript
+const entries = require('entries-iterator')
+
+function Cls () {}
+Cls.prototype.key = 'value'
+
+const i = entries(new Cls(), {inObj: true})
+i.next().value // ['key', 'value']
+i.next().done // true
+```
+
+#### Non-Enumerable Object Properties
+
+Include non-enumerable Object properties by setting `reflectObj` to `true`:
+
+```javascript
+const entries = require('entries-iterator')
+
+const obj = {}
+Object.defineProperty(obj, 'key', {value: 'value', enumerable: false})
+
+const i = entries(obj, {reflectObj: true})
+i.next().value // ['key', 'value']
+i.next().done // true
 ```
 
 ### Sets
@@ -118,5 +152,6 @@ i.next().done // true
 * [entries-array](https://github.com/lamansky/entries-array)
 * [keys-iterator](https://github.com/lamansky/keys-iterator)
 * [keys-array](https://github.com/lamansky/keys-array)
+* [props-iterator](https://github.com/lamansky/props-iterator)
 * [values-iterator](https://github.com/lamansky/values-iterator)
 * [values-array](https://github.com/lamansky/values-array)

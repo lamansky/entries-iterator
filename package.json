@@ -26,6 +26,7 @@
     "add-counter": "^1.0.0",
     "is-instance-of": "^1.0.0",
     "is-iterator": "^1.0.1",
+    "props-iterator": "^1.0.0",
     "sbo": "^1.0.0",
     "typed-arrays": "^1.0.0"
   },
