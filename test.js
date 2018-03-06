@@ -64,6 +64,14 @@ describe('entriesIterator()', function () {
     assert.strictEqual(i.next().done, true)
   })
 
+  it('should iterate String characters', function () {
+    const i = entries('hi')
+    assert(isIterator(i))
+    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([0, 'h']))
+    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([1, 'i']))
+    assert.strictEqual(i.next().done, true)
+  })
+
   it('should iterate Typed Array entries', function () {
     const i = entries(new Int32Array(new ArrayBuffer(4)))
     assert(isIterator(i))
