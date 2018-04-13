@@ -16,7 +16,7 @@ The module exports a single function.
 
 ### Parameters
 
-1. Bindable: `c` (Array, Iterator, Object, Map, Set, or Typed Array)
+1. Bindable: `c` (Array, Iterator, Object, Map, Set, string, or Typed Array)
 2. Object argument. Both of these default to `false` and only take effect if `c` is an Object (i.e. not another recognized type).
     * Optional: `inObj` (boolean): Whether or not to act like the “in” operator by including inherited Object properties.
     * Optional: `reflectObj` (boolean): Whether or not to include non-enumerable Object properties by using reflection.
@@ -132,6 +132,19 @@ set.add('second')
 const i = entries(set)
 i.next().value // [0, 'first']
 i.next().value // [1, 'second']
+i.next().done // true
+```
+
+### Strings
+
+`entries-iterator` will treat a string like a character array.
+
+```javascript
+const entries = require('entries-iterator')
+
+const i = entries('hi')
+i.next().value // [0, 'h']
+i.next().value // [1, 'i']
 i.next().done // true
 ```
 

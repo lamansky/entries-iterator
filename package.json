@@ -8,6 +8,7 @@
     "map",
     "object",
     "set",
+    "string",
     "typed array",
     "entries",
     "keys",
