@@ -33,6 +33,28 @@ describe('entriesIterator()', function () {
     assert.strictEqual(i.next().done, true)
   })
 
+  it('should iterate entries of a custom Map class', function () {
+    class MyMap {
+      entries () { return [['key', 'value']] }
+    }
+    assert.strictEqual(entries(new MyMap()).next().done, true)
+    const i = entries(new MyMap(), {maps: MyMap})
+    assert(isIterator(i))
+    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify(['key', 'value']))
+    assert.strictEqual(i.next().done, true)
+  })
+
+  it('should iterate entries of a custom Map class referenced by name string', function () {
+    class MyMap {
+      entries () { return [['key', 'value']] }
+    }
+    assert.strictEqual(entries(new MyMap()).next().done, true)
+    const i = entries(new MyMap(), {maps: 'MyMap'})
+    assert(isIterator(i))
+    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify(['key', 'value']))
+    assert.strictEqual(i.next().done, true)
+  })
+
   it('should iterate Object entries', function () {
     const i = entries({key: 'value'})
     assert(isIterator(i))

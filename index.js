@@ -5,12 +5,11 @@ const is = require('is-instance-of')
 const isIterator = require('is-iterator')
 const props = require('props-iterator')
 const sbo = require('sbo')
-const structures = ['Array', 'Map', require('typed-arrays').names()]
+const typedArrays = require('typed-arrays').names()
 
-module.exports = sbo((c, {inObj, reflectObj} = {}) => {
+module.exports = sbo((c, {inObj, arrays = [], maps = [], reflectObj, sets = []} = {}) => {
+  if (isIterator(c) || is(c, ['Set', sets])) return addCounter(c)
   if (typeof c === 'string') return Array.from(c).entries()
-  if (isIterator(c)) return addCounter(c)
-  if (is(c, 'Set')) return addCounter(c.values())
-  if (is(c, structures)) return c.entries()
+  if (is(c, ['Array', arrays, 'Map', maps, typedArrays])) return c.entries()[Symbol.iterator]()
   return props(c, {enumOnly: !reflectObj, own: !inObj})
 })
