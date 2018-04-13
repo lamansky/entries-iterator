@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "eslint-config-lamansky": "^1.0.0",
-    "mocha": "^5.0.0"
+    "mocha": "^5.1.0"
   },
   "scripts": {
     "test": "mocha"
