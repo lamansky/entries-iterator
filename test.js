@@ -101,6 +101,30 @@ describe('entriesIterator()', function () {
     assert.strictEqual(i.next().done, true)
   })
 
+  it('should return an empty iterator for undefined', function () {
+    const i = entries()
+    assert(isIterator(i))
+    assert.strictEqual(i.next().done, true)
+  })
+
+  it('should return an empty iterator for null', function () {
+    const i = entries(null)
+    assert(isIterator(i))
+    assert.strictEqual(i.next().done, true)
+  })
+
+  it('should return an empty iterator for a number', function () {
+    const i = entries(123)
+    assert(isIterator(i))
+    assert.strictEqual(i.next().done, true)
+  })
+
+  it('should return an empty iterator for a symbol', function () {
+    const i = entries(Symbol.iterator)
+    assert(isIterator(i))
+    assert.strictEqual(i.next().done, true)
+  })
+
   it('should support the bind operator', function () {
     const i = entries.call(['test'])
     assert(isIterator(i))
