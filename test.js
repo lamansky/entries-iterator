@@ -125,6 +125,14 @@ describe('entriesIterator()', function () {
     assert.strictEqual(i.next().done, true)
   })
 
+  it('should return entries in reverse order if `reverse` is true', function () {
+    const i = entries(['a', 'b'], {reverse: true})
+    assert(isIterator(i))
+    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([1, 'b']))
+    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([0, 'a']))
+    assert.strictEqual(i.next().done, true)
+  })
+
   it('should support the bind operator', function () {
     const i = entries.call(['test'])
     assert(isIterator(i))
