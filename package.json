@@ -30,7 +30,7 @@
     "add-counter": "^1.0.0",
     "empty-iterator": "^1.0.0",
     "entries-array": "^1.1.0",
-    "is-instance-of": "^1.0.1",
+    "is-instance-of": "^1.0.2",
     "is-iterator": "^1.0.1",
     "is-object": "^1.0.1",
     "prop-entries": "^1.0.0",
@@ -38,8 +38,8 @@
     "typed-arrays": "^1.0.0"
   },
   "devDependencies": {
-    "eslint-config-lamansky": "^1.0.0",
-    "mocha": "^5.2.0"
+    "eslint-config-lamansky": "^2.0.0",
+    "mocha": "^6.2.0"
   },
   "scripts": {
     "test": "mocha"
