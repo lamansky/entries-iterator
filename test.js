@@ -133,6 +133,23 @@ describe('entriesIterator()', function () {
     assert.strictEqual(i.next().done, true)
   })
 
+  it('should iterate array of two-item arrays as-is if `detectPairs` is true', function () {
+    {
+      const i = entries([[1, 2], [3, 4]], {detectPairs: true})
+      assert(isIterator(i))
+      assert.deepStrictEqual(i.next().value, [1, 2])
+      assert.deepStrictEqual(i.next().value, [3, 4])
+      assert.strictEqual(i.next().done, true)
+    }
+    {
+      const i = entries([[1, 2], [3, 4]])
+      assert(isIterator(i))
+      assert.deepStrictEqual(i.next().value, [0, [1, 2]])
+      assert.deepStrictEqual(i.next().value, [1, [3, 4]])
+      assert.strictEqual(i.next().done, true)
+    }
+  })
+
   it('should support the bind operator', function () {
     const i = entries.call(['test'])
     assert(isIterator(i))

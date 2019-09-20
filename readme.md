@@ -19,6 +19,7 @@ The module exports a single function.
 1. Bindable: `c` (Array, iterator, Object, Map, Set, string, or Typed Array)
 2. Optional: Object argument:
     * `arrays` / `maps` / `sets` (arrays of classes/strings): Arrays of classes and/or string names of classes that should be treated as equivalent to `Array`/`Map`/`Set` (respectively).
+    * `detectPairs` (boolean): This option only has an effect when `c` is an Array of two-item pairs, such as `[[1, 2], [3, 4]]`. When `detectPairs` is set to `false` (the default behavior), the Array indexes will be used as the keys (the items will be iterated as `[0, [1, 2]]` and `[1, [3, 4]]`). But if `detectPairs` is `true`, the module will interpret the first item in each pair as the entry key (the items will be iterated as `[1, 2]` and `[3, 4]`).
     * `inObj` (boolean): Whether or not to act like the “in” operator by including inherited Object properties. Only takes effect if `c` is an Object (i.e. not another recognized type). Defaults to `false`.
     * `reflectObj` (boolean): Whether or not to include non-enumerable Object properties by using reflection. Only takes effect if `c` is an Object (i.e. not another recognized type). Defaults to `false`.
     * `reverse` (boolean): If `true`, then entries are iterated in reverse order. Defaults to `false`.
@@ -41,6 +42,26 @@ i.next().done // true
 
 // Supports the bind operator
 ['a', 'b']::entries()
+```
+
+Examples using an array of entries (key/value pairs):
+
+```javascript
+const entries = require('entries-iterator')
+
+const arr = [['key1', 'val1'], ['key2', 'val2']]
+
+// Default behavior without the `detectPairs` option
+const i1 = entries(arr)
+i1.next().value // [0, ['key1', 'val1']]
+i1.next().value // [1, ['key2', 'val2']]
+i1.next().done // true
+
+// With `detectPairs` set to `true`
+const i2 = entries(arr, {detectPairs: true})
+i2.next().value // ['key1', 'val1']
+i2.next().value // ['key2', 'val2']
+i2.next().done // true
 ```
 
 ### Iterators

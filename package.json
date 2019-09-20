@@ -27,9 +27,11 @@
     "node": ">=7.0.0"
   },
   "dependencies": {
+    "@lamansky/every": "^1.0.0",
     "add-counter": "^1.0.0",
     "empty-iterator": "^1.0.0",
     "entries-array": "^1.1.0",
+    "is-array-of-length": "^1.1.0",
     "is-instance-of": "^1.0.2",
     "is-iterator": "^1.0.1",
     "is-object": "^1.0.1",
