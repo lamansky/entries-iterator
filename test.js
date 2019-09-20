@@ -8,8 +8,8 @@ describe('entriesIterator()', function () {
   it('should iterate Array entries', function () {
     const i = entries(['a', 'b'])
     assert(isIterator(i))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([0, 'a']))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([1, 'b']))
+    assert.deepStrictEqual(i.next().value, [0, 'a'])
+    assert.deepStrictEqual(i.next().value, [1, 'b'])
     assert.strictEqual(i.next().done, true)
   })
 
@@ -21,15 +21,15 @@ describe('entriesIterator()', function () {
 
     const i = entries(gen())
     assert(isIterator(i))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([0, 'a']))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([1, 'b']))
+    assert.deepStrictEqual(i.next().value, [0, 'a'])
+    assert.deepStrictEqual(i.next().value, [1, 'b'])
     assert.strictEqual(i.next().done, true)
   })
 
   it('should iterate Map entries', function () {
     const i = entries(new Map([['key', 'value']]))
     assert(isIterator(i))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify(['key', 'value']))
+    assert.deepStrictEqual(i.next().value, ['key', 'value'])
     assert.strictEqual(i.next().done, true)
   })
 
@@ -40,7 +40,7 @@ describe('entriesIterator()', function () {
     assert.strictEqual(entries(new MyMap()).next().done, true)
     const i = entries(new MyMap(), {maps: MyMap})
     assert(isIterator(i))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify(['key', 'value']))
+    assert.deepStrictEqual(i.next().value, ['key', 'value'])
     assert.strictEqual(i.next().done, true)
   })
 
@@ -51,14 +51,14 @@ describe('entriesIterator()', function () {
     assert.strictEqual(entries(new MyMap()).next().done, true)
     const i = entries(new MyMap(), {maps: 'MyMap'})
     assert(isIterator(i))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify(['key', 'value']))
+    assert.deepStrictEqual(i.next().value, ['key', 'value'])
     assert.strictEqual(i.next().done, true)
   })
 
   it('should iterate Object entries', function () {
     const i = entries({key: 'value'})
     assert(isIterator(i))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify(['key', 'value']))
+    assert.deepStrictEqual(i.next().value, ['key', 'value'])
     assert.strictEqual(i.next().done, true)
   })
 
@@ -82,22 +82,22 @@ describe('entriesIterator()', function () {
   it('should iterate Set entries', function () {
     const i = entries(new Set(['value']))
     assert(isIterator(i))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([0, 'value']))
+    assert.deepStrictEqual(i.next().value, [0, 'value'])
     assert.strictEqual(i.next().done, true)
   })
 
   it('should iterate String characters', function () {
     const i = entries('hi')
     assert(isIterator(i))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([0, 'h']))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([1, 'i']))
+    assert.deepStrictEqual(i.next().value, [0, 'h'])
+    assert.deepStrictEqual(i.next().value, [1, 'i'])
     assert.strictEqual(i.next().done, true)
   })
 
   it('should iterate Typed Array entries', function () {
     const i = entries(new Int32Array(new ArrayBuffer(4)))
     assert(isIterator(i))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([0, 0]))
+    assert.deepStrictEqual(i.next().value, [0, 0])
     assert.strictEqual(i.next().done, true)
   })
 
@@ -128,15 +128,15 @@ describe('entriesIterator()', function () {
   it('should return entries in reverse order if `reverse` is true', function () {
     const i = entries(['a', 'b'], {reverse: true})
     assert(isIterator(i))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([1, 'b']))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([0, 'a']))
+    assert.deepStrictEqual(i.next().value, [1, 'b'])
+    assert.deepStrictEqual(i.next().value, [0, 'a'])
     assert.strictEqual(i.next().done, true)
   })
 
   it('should support the bind operator', function () {
     const i = entries.call(['test'])
     assert(isIterator(i))
-    assert.strictEqual(JSON.stringify(i.next().value), JSON.stringify([0, 'test']))
+    assert.deepStrictEqual(i.next().value, [0, 'test'])
     assert.strictEqual(i.next().done, true)
   })
 })
